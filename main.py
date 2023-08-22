@@ -1,14 +1,19 @@
 import csv
 import os
 import requests
+import logging
 
 API_URL = "https://api.weather.com/v2/pws/observations/current?apiKey={key}&stationId={id}&numericPrecision=decimal&format=json&units=m"
+
 try:
     API_KEY = os.environ["API_KEY"]
 except KeyError:
-    API_KEY = "e1f10a1e78da46f5b10a1e78da96f525"
+    logging.error("Token nao encontrado")
+    raise Exception
 
 estacoes = []
+logging.basicConfig(level=logging.INFO, filename="programa.log",
+                    format="%(asctime)s - %(levelname)s - %(message)s")
 
 
 def setup():
@@ -31,17 +36,25 @@ def verificar_status_estacao(id_estacao):
     try:
         response = requests.get(url, timeout=30000)
         if response.status_code == 200:
-            print(f"Estação {id_estacao} está online.")
+            mensagem = f"{id_estacao} online."
+            print(mensagem)
+            logging.info(mensagem)
         else:
-            print(f"Estação {id_estacao} está offline! Enviando alerta...")
+            mensagem = f"{id_estacao} offline! Enviando alerta..."
+            print(mensagem)
+            logging.warning(mensagem)
     except requests.ConnectionError as conn_error:
-        print("Erro de conexão:", conn_error)
+        mensagem = "Erro de conexão:" + conn_error
+        logging.error(mensagem)
     except requests.Timeout as timeout_error:
-        print("Tempo limite excedido:", timeout_error)
+        mensagem = "Tempo limite excedido:" + timeout_error
+        logging.error(mensagem)
     except requests.HTTPError as http_error:
-        print("Erro HTTP:", http_error)
+        mensagem = "Erro HTTP:" + http_error
+        logging.error(mensagem)
     except requests.RequestException as ex:
-        print("Erro não esperado:", ex)
+        mensagem = "Erro não esperado:" + ex
+        logging.error(mensagem)
 
 
 setup()
