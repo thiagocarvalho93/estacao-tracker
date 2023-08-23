@@ -1,9 +1,9 @@
 import csv
 import os
-import requests
 import logging
 import smtplib
-from email.mime.text import MIMEText
+import email.message
+import requests
 
 logging.basicConfig(level=logging.INFO, filename="programa.log",
                     format="%(asctime)s - %(levelname)s - %(message)s")
@@ -12,18 +12,15 @@ API_URL = "https://api.weather.com/v2/pws/observations/current?apiKey={key}&stat
 
 try:
     API_KEY = os.environ["API_KEY"]
-except KeyError:
+    SENDER_EMAIL = os.environ["SENDER_EMAIL"]
+    SENDER_PASSWORD = os.environ["SENDER_PASSWORD"]
+    RECEIVER_EMAIL = os.environ["RECEIVER_EMAIL"]
+except KeyError as exc:
     logging.error("Token nao encontrado")
-    raise Exception("Token nao encontrado")
+    raise KeyError from exc
 
 estacoes = []
 estacoes_offline = []
-
-# Email configuration
-# TODO usar variáveis de ambiente
-sender_email = "your_email@example.com"
-sender_password = "your_email_password"
-receiver_email = "receiver@example.com"
 
 
 def setup():
@@ -68,24 +65,35 @@ def verificar_status_estacao(id_estacao):
         logging.error(mensagem)
 
 
-def enviar_email(estacoes):
-    subject = "Alerta de estação offline"
-    body = f"As estações {estacoes} estão offline."
+def enviar_email(lista_estacoes):
+    '''Envia um email de alerta com a lista de estações especificada'''
 
-    msg = MIMEText(body)
+    subject = "🚨 Alerta de estação offline"
+    body = "<h3>As segunites estações estão offline:</h3>"
+    body += "<ul>"
+    for est in lista_estacoes:
+        body += f"<li>{est}</li>"
+    body += "</ul>"
+
+    msg = email.message.Message()
     msg["Subject"] = subject
-    msg["From"] = sender_email
-    msg["To"] = receiver_email
+    msg["From"] = SENDER_EMAIL
+    msg["To"] = RECEIVER_EMAIL
+    msg.add_header("Content-Type", "text/html")
+    msg.set_payload(body)
 
     try:
-        server = smtplib.SMTP("smtp.example.com", 587)
+        server = smtplib.SMTP('smtp.gmail.com', 587)
         server.starttls()
-        server.login(sender_email, sender_password)
-        server.sendmail(sender_email, receiver_email, msg.as_string())
+        server.login(msg["From"], SENDER_PASSWORD)
+        server.sendmail(msg["From"], msg["To"],
+                        msg.as_string().encode("utf-8"))
         server.quit()
-        print("Alert email sent.")
-    except Exception as e:
-        print("Error sending email:", e)
+        print("Email enviado.")
+        logging.info("Email enviado aos destinatários %s", RECEIVER_EMAIL)
+    except Exception as err:
+        print("Erro ao enviar o email:", err)
+        logging.error("Erro ao enviar o email.")
 
 
 logging.info("Iniciando...")
@@ -94,7 +102,7 @@ setup()
 for estacao in estacoes:
     verificar_status_estacao(estacao)
 
-# if (estacoes_offline.count > 0):
-#     enviar_email(estacoes_offline)
+if len(estacoes_offline) > 0:
+    enviar_email(estacoes_offline)
 
 logging.info("Finalizando...")
