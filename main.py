@@ -3,8 +3,10 @@ import os
 import logging
 import smtplib
 import email.message
+import time
 import requests
 
+START_TIME = time.time()
 logging.basicConfig(level=logging.INFO, filename="programa.log",
                     format="%(asctime)s - %(levelname)s - %(message)s")
 
@@ -96,13 +98,14 @@ def enviar_email(lista_estacoes):
         logging.error("Erro ao enviar o email.")
 
 
-logging.info("Iniciando...")
-setup()
+if __name__ == '__main__':
+    logging.info("Iniciando...")
+    setup()
 
-for estacao in estacoes:
-    verificar_status_estacao(estacao)
+    for estacao in estacoes:
+        verificar_status_estacao(estacao)
 
-if len(estacoes_offline) > 0:
-    enviar_email(estacoes_offline)
+    if len(estacoes_offline) > 0:
+        enviar_email(estacoes_offline)
 
-logging.info("Finalizando...")
+    logging.info("Finalizando em %.2f s", (time.time() - START_TIME))
