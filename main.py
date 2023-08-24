@@ -34,7 +34,7 @@ def setup():
             for linha in leitor:
                 estacoes.extend(linha)
     except FileNotFoundError:
-        print("O arquivo estacoes.csv não foi encontrado.")
+        logging.error("O arquivo estacoes.csv não foi encontrado.")
 
 
 def verificar_status_estacao(id_estacao):
@@ -46,12 +46,10 @@ def verificar_status_estacao(id_estacao):
         response = requests.get(url, timeout=30000)
         if response.status_code == 200:
             mensagem = f"{id_estacao} online."
-            print(mensagem)
             logging.info(mensagem)
         else:
             mensagem = f"{id_estacao} offline! Enviando alerta..."
             estacoes_offline.append(id_estacao)
-            print(mensagem)
             logging.warning(mensagem)
     except requests.ConnectionError as conn_error:
         mensagem = "Erro de conexão:" + conn_error
@@ -91,15 +89,14 @@ def enviar_email(lista_estacoes):
         server.sendmail(msg["From"], msg["To"],
                         msg.as_string().encode("utf-8"))
         server.quit()
-        print("Email enviado.")
         logging.info("Email enviado aos destinatários %s", RECEIVER_EMAIL)
     except Exception as err:
-        print("Erro ao enviar o email:", err)
-        logging.error("Erro ao enviar o email.")
+        logging.error("Erro ao enviar o email: %s", err)
 
 
 if __name__ == '__main__':
     logging.info("Iniciando...")
+
     setup()
 
     for estacao in estacoes:
