@@ -18,6 +18,9 @@ except KeyError as exc:
     logging.error("Token nao encontrado")
     raise KeyError from exc
 
+# Create a session for making requests
+session = requests.Session()
+
 
 def transformar_csv_para_lista(nome_arquivo: str):
     '''Transforma um arquivo csv em uma lista'''
@@ -47,7 +50,7 @@ def verificar_estacao_offline(id_estacao: str):
     status_offline = False
 
     try:
-        response = requests.get(url, timeout=30000)
+        response = session.get(url, timeout=30000)
         if response.status_code == 200:
             mensagem = f"{id_estacao} online."
             logging.info(mensagem)
