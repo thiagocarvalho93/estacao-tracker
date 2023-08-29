@@ -559,3 +559,16 @@
 2023-08-29 10:36:49,118 - INFO - IMACA30 online.
 2023-08-29 10:36:49,294 - INFO - IMACA32 online.
 2023-08-29 10:36:49,294 - INFO - Finalizando em 2.15 s
+2023-08-29 12:51:06,992 - INFO - Iniciando...
+2023-08-29 12:51:07,165 - WARNING - IMACA6 offline! Enviando alerta...
+2023-08-29 12:51:07,446 - INFO - IMACA7 online.
+2023-08-29 12:51:07,881 - INFO - IMACA13 online.
+2023-08-29 12:51:07,929 - INFO - IMACA15 online.
+2023-08-29 12:51:08,077 - WARNING - IMACA22 offline! Enviando alerta...
+2023-08-29 12:51:08,142 - WARNING - IMACA23 offline! Enviando alerta...
+2023-08-29 12:51:08,218 - INFO - IMACA26 online.
+2023-08-29 12:51:08,311 - WARNING - IMACA27 offline! Enviando alerta...
+2023-08-29 12:51:08,392 - INFO - IMACA28 online.
+2023-08-29 12:51:08,494 - INFO - IMACA30 online.
+2023-08-29 12:51:08,765 - INFO - IMACA32 online.
+2023-08-29 12:51:08,766 - INFO - Finalizando em 1.77 s
