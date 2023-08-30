@@ -18,7 +18,6 @@ except KeyError as exc:
     logging.error("Token nao encontrado")
     raise KeyError from exc
 
-# Create a session for making requests
 session = requests.Session()
 
 
@@ -44,7 +43,7 @@ def escrever_csv_da_lista(nome_arquivo: str, lista: list):
         write.writerow(lista)
 
 
-def verificar_estacao_offline(id_estacao: str):
+def verificar_se_offline(id_estacao: str):
     '''Checa se a estação meteorológica está offline pelo seu id'''
     url = API_URL.format(key=API_KEY, id=id_estacao)
     status_offline = False
@@ -117,17 +116,13 @@ def enviar_email(corpo_email: str, assunto: str):
 
 
 def main():
-    '''Função principal a ser executada'''
+    '''Função principal.'''
 
     logging.info("Iniciando...")
-    estacoes = transformar_csv_para_lista("estacoes.csv")
+    ids_estacoes = transformar_csv_para_lista("estacoes.csv")
     offlines_antes = transformar_csv_para_lista("estacoes_offline.csv")
 
-    offlines_atual = []
-    for estacao in estacoes:
-        is_offline = verificar_estacao_offline(estacao)
-        if is_offline:
-            offlines_atual.append(estacao)
+    offlines_atual = [id for id in ids_estacoes if verificar_se_offline(id)]
 
     ficaram_off = list(set(offlines_atual).difference(offlines_antes))
     ficaram_on = list(set(offlines_antes).difference(offlines_atual))
