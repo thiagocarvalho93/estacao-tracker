@@ -5611,3 +5611,17 @@
 2023-09-30 18:36:47,685 - INFO - IMACA32 online.
 2023-09-30 18:36:48,685 - INFO - Email enviado aos destinatários
 2023-09-30 18:36:48,685 - INFO - Finalizando em 1.88 s
+2023-09-30 20:36:54,287 - INFO - Iniciando...
+2023-09-30 20:36:54,929 - INFO - IMACA6 online.
+2023-09-30 20:36:55,057 - INFO - IMACA7 online.
+2023-09-30 20:36:55,291 - INFO - IMACA13 online.
+2023-09-30 20:36:55,376 - INFO - IMACA15 online.
+2023-09-30 20:36:55,634 - WARNING - IMACA22 offline! Enviando alerta...
+2023-09-30 20:36:55,781 - WARNING - IMACA23 offline! Enviando alerta...
+2023-09-30 20:36:55,906 - INFO - IMACA26 online.
+2023-09-30 20:36:56,056 - WARNING - IMACA27 offline! Enviando alerta...
+2023-09-30 20:36:56,226 - INFO - IMACA28 online.
+2023-09-30 20:36:56,611 - INFO - IMACA30 online.
+2023-09-30 20:36:56,859 - INFO - IMACA32 online.
+2023-09-30 20:36:57,761 - INFO - Email enviado aos destinatários
+2023-09-30 20:36:57,761 - INFO - Finalizando em 3.47 s
