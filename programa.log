@@ -7666,3 +7666,16 @@
 2023-10-13 20:36:49,742 - INFO - IMACA30 online.
 2023-10-13 20:36:49,886 - INFO - IMACA32 online.
 2023-10-13 20:36:49,887 - INFO - Finalizando em 2.48 s
+2023-10-13 22:36:51,469 - INFO - Iniciando...
+2023-10-13 22:36:51,939 - INFO - IMACA6 online.
+2023-10-13 22:36:52,191 - INFO - IMACA7 online.
+2023-10-13 22:36:52,352 - INFO - IMACA13 online.
+2023-10-13 22:36:52,622 - INFO - IMACA15 online.
+2023-10-13 22:36:52,828 - WARNING - IMACA22 offline! Enviando alerta...
+2023-10-13 22:36:52,977 - WARNING - IMACA23 offline! Enviando alerta...
+2023-10-13 22:36:53,141 - WARNING - IMACA26 offline! Enviando alerta...
+2023-10-13 22:36:53,291 - INFO - IMACA27 online.
+2023-10-13 22:36:53,452 - WARNING - IMACA28 offline! Enviando alerta...
+2023-10-13 22:36:53,635 - INFO - IMACA30 online.
+2023-10-13 22:36:53,794 - INFO - IMACA32 online.
+2023-10-13 22:36:53,794 - INFO - Finalizando em 2.32 s
